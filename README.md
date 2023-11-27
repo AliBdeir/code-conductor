@@ -1,7 +1,5 @@
 # Code Conductor
 
-Welcome to the Code Conductor repository! This project uses Vite for a smooth development experience.
-
 ## Prerequisites
 
 Before you begin, ensure you have installed the latest versions of:
