@@ -1,13 +1,14 @@
 import "./App.css";
+import Toolbar from "./components/toolbar/toolbar";
 
 function App() {
-  return (
-    <>
-      <div>
-        <p>Hello world</p>
-      </div>
-    </>
-  );
+    return (
+        <div className="flex flex-col w-screen -scren">
+            <Toolbar />
+
+        </div>
+
+    );
 }
 
 export default App;

@@ -1,0 +1,13 @@
+/* Component with the "main-toolbar' id */
+/* This is the part of the toolbar that is colored dark blue */
+#main-toolbar-outer {
+    width: 100%;
+    height: 64px;
+}
+
+/* This is the div that's INSIDE of the main toolbar. You will put your contents inside of here (i.e buttons, etc.) */
+#main-toolbar-inner {
+    width: 100%;
+    height: 100%;
+    /* ^ Makes the inner div take the entire width and height of the dark blue toolbar. This is your canvas to do whatever you want inside the toolbar */
+}
