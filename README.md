@@ -6,6 +6,16 @@ Before you begin, ensure you have installed the latest versions of:
 
 - **Node.js** - [Download Node.js LTS Version](https://nodejs.org/en/download)
 - **Git** - [Download Git](https://git-scm.com/downloads)
+- **Visual Studio Code** - [Download VSCode](https://code.visualstudio.com/)
+    - Make sure to install the [React Extension Pack](https://marketplace.visualstudio.com/items?itemName=jawandarajbir.react-vscode-extension-pack)
+
+## Resources
+- **GIT** (Version Control)
+    - [Git in 100 seconds](https://www.youtube.com/watch?v=hwP7WQkmECE)
+    - [Git Pull Requests in 100 seconds](https://www.youtube.com/watch?v=8lGpZkjnkt4)
+
+- **HTML**
+    - [HTML/CSS/JS in 30 minutes](https://www.youtube.com/watch?app=desktop&v=_GTMOmRrqkU)
 
 ## Getting Started
 
