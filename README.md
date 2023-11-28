@@ -17,6 +17,24 @@ Before you begin, ensure you have installed the latest versions of:
 - **HTML**
     - [HTML/CSS/JS in 30 minutes](https://www.youtube.com/watch?app=desktop&v=_GTMOmRrqkU)
 
+- **TYPESCRIPT**
+    - [TypeScript in 100 seconds](https://www.youtube.com/watch?v=zQnBQ4tB3ZA)
+        - You do NOT need to "learn" TypeScript, it is literally just JavaScript but strongly-typed. TypeScript simply prevents you from doing something like:
+        ```js
+        let text = "Hello, world!";
+        text = 0; // This is valid JavaScript
+        ```
+        Here's what the code would look like in TypeScript:
+        ```ts
+        let text: string = "Hello, world!";
+        text = 0; // Syntax error in TypeScript!
+        ```
+
+- **REACT**
+    - I'm only presuming [@Abdul](https://github.com/khanabdu25) knows some React. The tasks I am giving the rest of you DO NOT require React knowledge, only HTML, CSS, and JavaScript (at least during the beginning of the project). However, you should still watch the following video to get a general idea of what's going on:
+
+    ### **[React in 100 seconds](https://www.youtube.com/watch?v=Tn6-PIqc4UM)**
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
