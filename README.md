@@ -7,7 +7,9 @@ Before you begin, ensure you have installed the latest versions of:
 - **Node.js** - [Download Node.js LTS Version](https://nodejs.org/en/download)
 - **Git** - [Download Git](https://git-scm.com/downloads)
 - **Visual Studio Code** - [Download VSCode](https://code.visualstudio.com/)
-    - Make sure to install the [React Extension Pack](https://marketplace.visualstudio.com/items?itemName=jawandarajbir.react-vscode-extension-pack)
+    - Make sure to install the following extensions:
+        - [React Extension Pack](https://marketplace.visualstudio.com/items?itemName=jawandarajbir.react-vscode-extension-pack)
+        - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
 
 ## Resources
 - **GIT** (Version Control)
