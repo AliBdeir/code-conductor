@@ -10,4 +10,10 @@
     width: 100%;
     height: 100%;
     /* ^ Makes the inner div take the entire width and height of the dark blue toolbar. This is your canvas to do whatever you want inside the toolbar */
+
+    padding-top: 7px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-size: 30px;
+    font-weight: 500;
 }

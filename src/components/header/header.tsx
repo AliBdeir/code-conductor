@@ -4,7 +4,7 @@ function Toolbar() {
     return (
         <AppBar position="static" id="main-toolbar-outer">
             <div id='main-toolbar-inner'>
-                {/* //! PUT THE TITLE IN HERE */}
+                <h1>Code Conductor</h1>
             </div>
         </AppBar>
     );
