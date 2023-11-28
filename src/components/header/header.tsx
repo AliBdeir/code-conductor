@@ -1,10 +1,10 @@
 import { AppBar } from "@mui/material";
-import "./toolbar-style.css";
+import "./header-style.css";
 function Toolbar() {
     return (
         <AppBar position="static" id="main-toolbar-outer">
-            <div className='main-toolbar-inner'>
-                Hello world!
+            <div id='main-toolbar-inner'>
+                {/* //! PUT THE TITLE IN HERE */}
             </div>
         </AppBar>
     );

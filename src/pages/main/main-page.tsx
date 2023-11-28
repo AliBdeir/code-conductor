@@ -1,6 +1,8 @@
+import './main-page.css'
+
 function MainPage() {
     return (
-        <div>
+        <div id='main-page'>
             <h1>Main Page</h1>
         </div>
     )
