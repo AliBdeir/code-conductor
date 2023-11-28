@@ -2,7 +2,7 @@ import './main-page.css'
 
 function MainPage() {
     return (
-        <div id='main-page'>
+        <div>
             <h1>Main Page</h1>
         </div>
     )
