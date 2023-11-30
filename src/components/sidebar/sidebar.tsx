@@ -23,7 +23,7 @@ const Sidebar = () => {
             }}
         >
             <Toolbar className='h-16 flex justify-end' style={{ backgroundColor: theme.palette.primary.main }}>
-                <IconButton><BackIcon /></IconButton>
+                <IconButton style={{ color: theme.palette.primary.contrastText }}><BackIcon /></IconButton>
             </Toolbar>
             <Divider />
             <List>
