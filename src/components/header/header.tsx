@@ -1,11 +1,14 @@
-import { AppBar } from "@mui/material";
+import { AppBar, Typography } from "@mui/material";
 import "./header-style.css";
+import MuiToolbar from '@mui/material/Toolbar';
+
+
 function Toolbar() {
     return (
         <AppBar position="static" id="main-toolbar-outer">
-            <div id='main-toolbar-inner'>
-                <h1>Code Conductor</h1>
-            </div>
+            <MuiToolbar>
+                <Typography variant='h4'>Code Conductor</ Typography>
+            </MuiToolbar>
         </AppBar>
     );
 }
