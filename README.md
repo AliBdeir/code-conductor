@@ -1,5 +1,10 @@
 # Code Conductor
 
+## Figma Design
+- ![image](https://github.com/AliBdeir/code-conductor/assets/30950330/e5d547c5-a9b2-4fb7-a89e-4308b1cbd659)
+- ![image](https://github.com/AliBdeir/code-conductor/assets/30950330/0d4d0209-b2b1-4d85-985a-d31afd5f65ab)
+
+
 ## Prerequisites
 
 Before you begin, ensure you have installed the latest versions of:
