@@ -15,6 +15,13 @@ const theme = createTheme({
       contrastText: "rgba(0, 0, 0, 0.87)",
     },
   },
+  components: {
+    MuiTextField: {
+        defaultProps: {
+            variant: 'standard',
+        }
+    }
+  }
 });
 
 export default theme;
