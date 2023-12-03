@@ -16,7 +16,7 @@ function App() {
         //         </div>
         //     </div>
         // </div>
-        <div className='flex flex-row w-screen h-screen'>
+        <div className='flex flex-row w-screen h-screen' style={{width: "auto"}}>
             <div>
                 <Sidebar />
             </div>

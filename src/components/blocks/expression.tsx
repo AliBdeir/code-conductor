@@ -15,7 +15,7 @@ const ExpressionBlock = () => {
                              marginBottom: "10px"
                         }} />
 
-                        {/* <TextField 
+                        <TextField 
                             style={{
                                 width: "100%"
                             }}
@@ -23,7 +23,7 @@ const ExpressionBlock = () => {
                             id="required"
                             variant="outlined"
                             label="Description or Comments"
-                        /> */}
+                        />
                     </div>
                 </CardContent>
             </Card>
