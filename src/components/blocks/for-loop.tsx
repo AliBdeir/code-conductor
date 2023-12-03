@@ -20,7 +20,7 @@ const ForLoopBlock = () => {
                             }}                
                             
                             id="required"
-                            placeholder='e.g. "i = 0 to 10"'
+                            placeholder=' e.g. "for i = 0 to 10"'
                         />
 
                         <TextField 
@@ -31,7 +31,6 @@ const ForLoopBlock = () => {
                             id="required"
                             variant="outlined"
                             label="Description or Comments"
-                            defaultValue=""
                         />
                     </div>
                 </CardContent>

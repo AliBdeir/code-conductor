@@ -1,7 +1,6 @@
 import { Card, CardContent, TextField, Typography } from "@mui/material"
 
-let expressionNum = 1.0; //THIS IS SO THAT THE EXP NUMBER CAN CHANGE DYNAMICALLY AS THE USER ADDS MORE EXPS TO THE CONDUCTOR
-
+let expressionNum = 1.0; 
 
 const ExpressionBlock = () => {
     return (
@@ -24,7 +23,6 @@ const ExpressionBlock = () => {
                             id="required"
                             variant="outlined"
                             label="Description or Comments"
-                            defaultValue=""
                         /> */}
                     </div>
                 </CardContent>
