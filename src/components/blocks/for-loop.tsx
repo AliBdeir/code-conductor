@@ -7,7 +7,7 @@ const ForLoopBlock = () => {
         <div>
             <Card variant='outlined' >
                 <CardContent>
-                    <Typography variant='subtitle1' color='secondary'> {loopNum.toFixed(1)} FOR loop</Typography>
+                    <Typography variant='subtitle1' color='secondary'>{loopNum.toFixed(1)} FOR loop</Typography>
         
                     <div style={{ width: "100%"}}>
                         <Typography variant="h6" style={{ float: "left" }}>for</Typography>
@@ -30,7 +30,7 @@ const ForLoopBlock = () => {
                             
                             id="required"
                             variant="outlined"
-                            label="Description and Comments"
+                            label="Description or Comments"
                             defaultValue=""
                         />
                     </div>
