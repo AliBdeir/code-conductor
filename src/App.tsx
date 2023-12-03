@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -44,16 +44,11 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function App() {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = () => {
     setOpen(!open); // Toggle the open state
   };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -73,7 +68,7 @@ export default function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Code Conductor
           </Typography>
         </Toolbar>
       </AppBar>

@@ -1,4 +1,4 @@
-import {  IconButton, Divider, List, ListItemButton, ListItemText } from '@mui/material';
+import {  IconButton, Divider, List, ListItem, ListItemText } from '@mui/material';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import TextField from '@mui/material/TextField';
@@ -80,15 +80,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         <List>
                 {/* Algorithm Name */}
                 <Tooltip title="Algorithm Name" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <LabelIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Algorithm Name" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <TextField
                             id="algorithm-name"
                             label="Algorithm Name"
@@ -96,20 +96,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                             size="small"
                             fullWidth
                         />
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Input Parameters */}
                 <Tooltip title="Input Parameters" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <TransitEnterexitIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Input Parameters" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <TextField
                             id="input-name"
                             label="Inputs"
@@ -126,20 +126,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                             fullWidth
                             margin="dense"
                         />
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Output Parameters */}
                 <Tooltip title="Output Parameters" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <CallMadeIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Output Parameters" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
                             <TextField
                                 id="output-name"
@@ -158,20 +158,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                                 margin="dense"
                             />
                         </div>
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Add Blocks */}
                 <Tooltip title="Add Blocks" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <AddCircleOutlineIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Add Blocks" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <FormControl style={{ flex: 1, marginRight: '10px' }} size="small">
                             <InputLabel id="block-type-label">Block Type</InputLabel>
                             <Select
@@ -191,7 +191,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                         <Button variant="outlined" color="primary">
                             Add
                         </Button>
-                    </ListItemButton>
+                    </ListItem>
                 )}
             </List>
       </Drawer>
