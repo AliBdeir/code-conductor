@@ -9,8 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MainPage from './pages/main/main-page';
 import Sidebar from './components/sidebar/sidebar';
-
-const drawerWidth = 240;
+//constants
+import { drawerWidth } from './constants/constants';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

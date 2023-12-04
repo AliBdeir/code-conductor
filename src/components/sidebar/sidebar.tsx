@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { IconButton, Divider, List } from '@mui/material';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
@@ -8,13 +9,14 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 import CallMadeIcon from '@mui/icons-material/CallMade';
+//constants
+import { drawerWidth } from '../../constants/constants';
 //custom components
 import ListItemComponent from '../sidebar-tile/sidebar-tile';
 import TextFieldComponent from '../text-field/text-field';
 import IconButtonComponent from '../icon-button/icon-button';
 import AddBlocksComponent from '../add-blocks/add-block';
-
-const drawerWidth = 240;
+import ComponentRow from '../component-row/component-row';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
@@ -63,12 +65,34 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const Sidebar = ({ open, toggleDrawer }) => {
+interface RowItem {
+    id: string;
+}
 
+const Sidebar: React.FC<{ open: boolean, toggleDrawer: () => void }> = ({ open, toggleDrawer }) => {
     const theme = useTheme();
 
+    const [inputRows, setInputRows] = useState<RowItem[]>([]);
+    const [outputRows, setOutputRows] = useState<RowItem[]>([]);
+
+    const addInput = () => {
+        setInputRows(inputRows => [...inputRows, { id: `input-${inputRows.length}` }]);
+    };
+
+    const removeInput = (index: number) => {
+        setInputRows(inputRows => inputRows.filter((_, i) => i !== index));
+    };
+
+    const addOutput = () => {
+        setOutputRows(outputRows => [...outputRows, { id: `output-${outputRows.length}` }]);
+    };
+
+    const removeOutput = (index: number) => {
+        setOutputRows(outputRows => outputRows.filter((_, i) => i !== index));
+    };
+
     return (
-        <Drawer variant="permanent" open={open} >
+        <Drawer variant="permanent" open={open}>
             <DrawerHeader style={{ backgroundColor: theme.palette.primary.main }}>
                 <IconButton onClick={toggleDrawer}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -76,57 +100,72 @@ const Sidebar = ({ open, toggleDrawer }) => {
             </DrawerHeader>
             <Divider />
             <List sx={{ padding: '0 16px' }}>
-                {listItems.map(({ title, icon, fields, buttons }) => (
-                    <ListItemComponent title={title} icon={icon} open={open}>
-                        <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-                            {fields.map(field => (
-                                <TextFieldComponent key={field.id} {...field} />
-                            ))}
-                            {buttons && buttons.map(button => (
-                                <IconButtonComponent key={button.id} {...button} />
-                            ))}
-                        </div>
-                    </ListItemComponent>
-                ))}
+                {/* Algorithm Name */}
+                <ListItemComponent
+                    title="Algorithm Name"
+                    icon={LabelIcon}
+                    open={open}
+                >
+                    {/* algo name TextField */}
+                    <ComponentRow
+                        components={[
+                            { Component: TextFieldComponent, props: { id: 'algorithm-name', label: "Algorithm Name" } }
+                        ]}
+                    />
+                </ListItemComponent>
+                {/* Input Rows */}
+                <ListItemComponent
+                    title={<TitleWithIconButton title="Input Params" icon={AddCircleOutlineIcon} onClick={addInput} />}
+                    icon={TransitEnterexitIcon}
+                    open={open}
+                >
+                    {inputRows.map((row, index) => (
+                        <ReusableRowComponent key={row.id} onRemove={() => removeInput(index)} />
+                    ))}
+                </ListItemComponent>
+
+                {/* Output Rows */}
+                <ListItemComponent
+                    title={<TitleWithIconButton title="Output Params" icon={AddCircleOutlineIcon} onClick={addOutput} />}
+                    icon={CallMadeIcon}
+                    open={open}
+                >
+                    {outputRows.map((row, index) => (
+                        <ReusableRowComponent key={row.id} onRemove={() => removeOutput(index)} />
+                    ))}
+                </ListItemComponent>
                 <AddBlocksComponent open={open} />
             </List>
-
         </Drawer>
     );
 };
 
 export default Sidebar;
 
-const listItems = [
-    {
-        title: "Algorithm Name",
-        icon: LabelIcon,
-        fields: [
-            { id: "algorithm-name", label: "Algorithm Name", type: "text" }
-        ]
-    },
-    {
-        title: "Input Parameters",
-        icon: TransitEnterexitIcon,
-        fields: [
-            { id: "input-name", label: "Inputs", type: "text" },
-            { id: "input-data-type", label: "Data Type", type: "text" }
-        ],
-        buttons: [
-            { id: 'add', icon: AddCircleOutlineIcon, onClick: () => {/* handle add */ } },
-            { id: 'delete', icon: DeleteIcon, onClick: () => {/* handle delete */ } },
-        ]
-    },
-    {
-        title: "Output Parameters",
-        icon: CallMadeIcon,
-        fields: [
-            { id: "input-name", label: "Inputs", type: "text" },
-            { id: "input-data-type", label: "Data Type", type: "text" }
-        ],
-        buttons: [
-            { id: 'add', icon: AddCircleOutlineIcon, onClick: () => {/* handle add */ } },
-            { id: 'delete', icon: DeleteIcon, onClick: () => {/* handle delete */ } },
-        ]
-    },
-];
+const TitleWithIconButton = ({ icon, onClick, title }) => (
+    <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        margin: '0 10px' 
+    }}>
+        <span style={{ margin: 0 }}>{title}</span>
+        <IconButtonComponent
+            icon={icon}
+            onClick={onClick}
+        />
+    </div>
+);
+
+const ReusableRowComponent = ({ onRemove }) => {
+    return (
+        <ComponentRow
+            components={[
+                { Component: TextFieldComponent, props: { id: "name", label: "Name" } },
+                { Component: TextFieldComponent, props: { id: "data-type", label: "Data Type" } },
+                { Component: IconButtonComponent, props: { icon: DeleteIcon, onClick: onRemove } },
+            ]}
+        />
+    );
+};
