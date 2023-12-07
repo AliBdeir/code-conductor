@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
-import { IconButton, Divider, List } from '@mui/material';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
+
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LabelIcon from '@mui/icons-material/Label';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
-import CallMadeIcon from '@mui/icons-material/CallMade';
-//constants
-import { drawerWidth } from '../../constants/constants';
+import { Divider, IconButton, List, ListItem, ListItemText } from '@mui/material';
+import Button from '@mui/material/Button';
+import MuiDrawer from '@mui/material/Drawer';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
+import { useState } from 'react';
 //custom components
-import ListItemComponent from '../sidebar-tile/sidebar-tile';
+import ComponentRow from '../component-row/component-row';
 import TextFieldComponent from '../text-field/text-field';
 import IconButtonComponent from '../icon-button/icon-button';
-import AddBlocksComponent from '../add-blocks/add-block';
-import ComponentRow from '../component-row/component-row';
+
+
+const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
@@ -69,11 +77,24 @@ interface RowItem {
     id: string;
 }
 
-const Sidebar: React.FC<{ open: boolean, toggleDrawer: () => void }> = ({ open, toggleDrawer }) => {
+const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
 
     const [inputRows, setInputRows] = useState<RowItem[]>([]);
     const [outputRows, setOutputRows] = useState<RowItem[]>([]);
+
+    const [parameterName, setParameterName] = useState('');
+    const [dataTypeName, setDataTypeName] = useState('');
+
+    const handleParameterNameChange = (newValue) => {
+        console.log(newValue);
+        setParameterName(newValue);
+    };
+
+    const handleDataTypeNameChange = (newValue) => {
+        console.log(newValue);
+        setDataTypeName(newValue);
+    };
 
     const addInput = () => {
         setInputRows(inputRows => [...inputRows, { id: `input-${inputRows.length}` }]);
@@ -101,40 +122,110 @@ const Sidebar: React.FC<{ open: boolean, toggleDrawer: () => void }> = ({ open, 
             <Divider />
             <List sx={{ padding: '0 16px' }}>
                 {/* Algorithm Name */}
-                <ListItemComponent
-                    title="Algorithm Name"
-                    icon={LabelIcon}
-                    open={open}
-                >
-                    {/* algo name TextField */}
-                    <ComponentRow
-                        components={[
-                            { Component: TextFieldComponent, props: { id: 'algorithm-name', label: "Algorithm Name" } }
-                        ]}
+                <Tooltip title="Algorithm Name" placement="right">
+                    <ListItem>
+                        <ListItemIcon>
+                            <LabelIcon />
+                        </ListItemIcon>
+                        {open && <ListItemText primary="Algorithm Name" />}
+                    </ListItem>
+                </Tooltip>
+                {open && (
+                    <ListItem>
+                        <TextField
+                            id="algorithm-name"
+                            label="Algorithm Name"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                        />
+                    </ListItem>
+                )}
+                <Divider />
+                {/* Input Parameters */}
+                <Tooltip title="Input Parameters" placement="right">
+                    <ListItem>
+                        <ListItemIcon>
+                            <TransitEnterexitIcon />
+                        </ListItemIcon>
+                        {open && <TitleWithIconButton title="Input Params" icon={AddCircleOutlineIcon} onClick={addInput} />}
+                    </ListItem>
+                </Tooltip>
+                {open && (
+                    <ListItem>
+                         <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {inputRows.map((row, index) => (
+                        <ParameterRow
+                        parameterNameLabel="Name"
+                        parameterNameValue={parameterName}
+                        parameterNameChanged={handleParameterNameChange}
+                        dataTypeNameValue={dataTypeName}
+                        dataTypeNameChanged={handleDataTypeNameChange}
+                        onDeleted={() => removeInput(index)}
                     />
-                </ListItemComponent>
-                {/* Input Rows */}
-                <ListItemComponent
-                    title={<TitleWithIconButton title="Input Params" icon={AddCircleOutlineIcon} onClick={addInput} />}
-                    icon={TransitEnterexitIcon}
-                    open={open}
-                >
-                    {inputRows.map((row, index) => (
-                        <ReusableRowComponent key={row.id} onRemove={() => removeInput(index)} />
-                    ))}
-                </ListItemComponent>
-
-                {/* Output Rows */}
-                <ListItemComponent
-                    title={<TitleWithIconButton title="Output Params" icon={AddCircleOutlineIcon} onClick={addOutput} />}
-                    icon={CallMadeIcon}
-                    open={open}
-                >
-                    {outputRows.map((row, index) => (
-                        <ReusableRowComponent key={row.id} onRemove={() => removeOutput(index)} />
-                    ))}
-                </ListItemComponent>
-                <AddBlocksComponent open={open} />
+                        ))}
+                        </div>
+                    </ListItem>
+                )}
+                <Divider />
+                {/* Output Parameters */}
+                <Tooltip title="Output Parameters" placement="right">
+                    <ListItem>
+                        <ListItemIcon>
+                            <CallMadeIcon />
+                        </ListItemIcon>
+                        {open && <TitleWithIconButton title="Output Params" icon={AddCircleOutlineIcon} onClick={addOutput} />}
+                    </ListItem>
+                </Tooltip>
+                {open && (
+                    <ListItem>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {outputRows.map((row, index) => (
+                        <ParameterRow
+                        parameterNameLabel="Name"
+                        parameterNameValue={parameterName}
+                        parameterNameChanged={handleParameterNameChange}
+                        dataTypeNameValue={dataTypeName}
+                        dataTypeNameChanged={handleDataTypeNameChange}
+                        onDeleted={() => removeOutput(index)}
+                    />
+                        ))}
+                        </div>
+                    </ListItem>
+                )}
+                <Divider />
+                {/* Add Blocks */}
+                <Tooltip title="Add Blocks" placement="right">
+                    <ListItem>
+                        <ListItemIcon>
+                            <AddCircleOutlineIcon />
+                        </ListItemIcon>
+                        {open && <ListItemText primary="Add Blocks" />}
+                    </ListItem>
+                </Tooltip>
+                {open && (
+                    <ListItem>
+                        <FormControl style={{ flex: 1, marginRight: '10px' }} size="small">
+                            <InputLabel id="block-type-label">Block Type</InputLabel>
+                            <Select
+                                labelId="block-type-label"
+                                id="block-type-select"
+                                value=""
+                                label="Block Type"
+                                fullWidth
+                            >
+                                <MenuItem value="While Loop">While Loop</MenuItem>
+                                <MenuItem value="If Statement">If Statement</MenuItem>
+                                <MenuItem value="If-Else Statement">If-Else Statement</MenuItem>
+                                <MenuItem value="For Loop">For Loop</MenuItem>
+                                <MenuItem value="Expression">Expression</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Button variant="outlined" color="primary">
+                            Add
+                        </Button>
+                    </ListItem>
+                )}
             </List>
         </Drawer>
     );
@@ -143,13 +234,7 @@ const Sidebar: React.FC<{ open: boolean, toggleDrawer: () => void }> = ({ open, 
 export default Sidebar;
 
 const TitleWithIconButton = ({ icon, onClick, title }) => (
-    <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
-        margin: '0 10px' 
-    }}>
+    <div >
         <span style={{ margin: 0 }}>{title}</span>
         <IconButtonComponent
             icon={icon}
@@ -158,13 +243,42 @@ const TitleWithIconButton = ({ icon, onClick, title }) => (
     </div>
 );
 
-const ReusableRowComponent = ({ onRemove }) => {
+const ParameterRow = ({
+    parameterNameLabel,
+    parameterNameValue,
+    parameterNameChanged,
+    dataTypeNameValue,
+    dataTypeNameChanged,
+    onDeleted
+}) => {
     return (
         <ComponentRow
             components={[
-                { Component: TextFieldComponent, props: { id: "name", label: "Name" } },
-                { Component: TextFieldComponent, props: { id: "data-type", label: "Data Type" } },
-                { Component: IconButtonComponent, props: { icon: DeleteIcon, onClick: onRemove } },
+                {
+                    Component: TextFieldComponent,
+                    props: {
+                        id: "parameter-name",
+                        label: parameterNameLabel,
+                        value: parameterNameValue,
+                        onChange: (e) => parameterNameChanged(e.target.value)
+                    }
+                },
+                {
+                    Component: TextFieldComponent,
+                    props: {
+                        id: "data-type",
+                        label: "Data Type",
+                        value: dataTypeNameValue,
+                        onChange: (e) => dataTypeNameChanged(e.target.value)
+                    }
+                },
+                {
+                    Component: IconButtonComponent,
+                    props: {
+                        icon: DeleteIcon,
+                        onClick: onDeleted
+                    }
+                }
             ]}
         />
     );

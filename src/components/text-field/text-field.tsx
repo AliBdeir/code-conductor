@@ -1,7 +1,7 @@
 // TextFieldComponent.tsx
 import TextField from '@mui/material/TextField';
 
-const TextFieldComponent = ({ id, label }) => (
+const TextFieldComponent = ({ id, label, value, onChange }) => (
     <TextField
         id={id}
         label={label}
@@ -9,6 +9,8 @@ const TextFieldComponent = ({ id, label }) => (
         size="small"
         fullWidth
         margin="dense"
+        value={value}        
+        onChange={onChange} 
     />
 );
 
