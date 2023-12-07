@@ -1,4 +1,4 @@
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -17,10 +17,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 //custom components
-import ComponentRow from '../component-row/component-row';
-import TextFieldComponent from '../text-field/text-field';
-import IconButtonComponent from '../icon-button/icon-button';
-
+import TitleWithIconButton from '../titlewithicon/sidebar-tile';
+import ParameterRow from '../rows/parameter-row';
 
 const drawerWidth = 240;
 
@@ -71,7 +69,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const Sidebar = ({ open, toggleDrawer }) => {
+interface RowItem {
+    id: string;
+}
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
@@ -110,7 +110,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
 
     return (
         <Drawer variant="permanent" open={open}>
-            <DrawerHeader style={{ backgroundColor: theme.palette.primary.main }}>
+            <DrawerHeader style={{ boxShadow: theme.shadows[4],backgroundColor: theme.palette.primary.main }}>
                 <IconButton onClick={toggleDrawer}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
@@ -228,54 +228,3 @@ const Sidebar = ({ open, toggleDrawer }) => {
 };
 
 export default Sidebar;
-
-const TitleWithIconButton = ({ icon, onClick, title }) => (
-    <div >
-        <span style={{ margin: 0 }}>{title}</span>
-        <IconButtonComponent
-            icon={icon}
-            onClick={onClick}
-        />
-    </div>
-);
-
-const ParameterRow = ({
-    parameterNameLabel,
-    parameterNameValue,
-    parameterNameChanged,
-    dataTypeNameValue,
-    dataTypeNameChanged,
-    onDeleted
-}) => {
-    return (
-        <ComponentRow
-            components={[
-                {
-                    Component: TextFieldComponent,
-                    props: {
-                        id: "parameter-name",
-                        label: parameterNameLabel,
-                        value: parameterNameValue,
-                        onChange: (e) => parameterNameChanged(e.target.value)
-                    }
-                },
-                {
-                    Component: TextFieldComponent,
-                    props: {
-                        id: "data-type",
-                        label: "Data Type",
-                        value: dataTypeNameValue,
-                        onChange: (e) => dataTypeNameChanged(e.target.value)
-                    }
-                },
-                {
-                    Component: IconButtonComponent,
-                    props: {
-                        icon: DeleteIcon,
-                        onClick: onDeleted
-                    }
-                }
-            ]}
-        />
-    );
-};
