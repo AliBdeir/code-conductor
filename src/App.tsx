@@ -1,20 +1,17 @@
-import "./App.css";
-import Sidebar from "./components/sidebar/sidebar";
-import Toolbar from "./components/header/header";
-import MainPage from "./pages/main/main-page";
+import Toolbar from './components/header/header';
+import Sidebar from './components/sidebar/sidebar';
+import MainPage from './pages/main/main-page';
 
-function App() {
+export default function App() {
     return (
-        <div className='flex flex-row w-screen h-screen' style={{ width: "auto" }}>
-            <div>
-                <Sidebar />
-            </div>
-            <div className='flex-1 h-full flex flex-col'>
-                <Toolbar />
-                <MainPage />
+        <div className='h-screen w-screen'>
+            <div className='flex flex-row w-full'>
+                <Sidebar open toggleDrawer={() => alert('')} />
+                <div className='flex flex-col flex-grow'>
+                    <Toolbar />
+                    <MainPage />
+                </div>
             </div>
         </div>
     );
 }
-
-export default App;
