@@ -1,43 +1,43 @@
-import {  IconButton, Divider, List, ListItemButton, ListItemText } from '@mui/material';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MenuItem from '@mui/material/MenuItem';
+import LabelIcon from '@mui/icons-material/Label';
+import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
+import { Divider, IconButton, List, ListItem, ListItemText } from '@mui/material';
+import Button from '@mui/material/Button';
+import MuiDrawer from '@mui/material/Drawer';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
-import LabelIcon from '@mui/icons-material/Label';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
     }),
     overflowX: 'hidden',
-  });
-  
-  const closedMixin = (theme: Theme): CSSObject => ({
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
     width: `calc(${theme.spacing(7)} + 1px)`,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(${theme.spacing(8)} + 1px)`,
+        width: `calc(${theme.spacing(8)} + 1px)`,
     },
-  });
+});
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -46,49 +46,49 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-  }));
+}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      boxSizing: 'border-box',
-      ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      }),
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
     }),
-  );
+);
 
-  const Sidebar = ({ open, toggleDrawer }) => {
+const Sidebar = ({ open, toggleDrawer }) => {
 
     const theme = useTheme();
 
     return (
         <Drawer variant="permanent" open={open}>
-        <DrawerHeader style={{ backgroundColor: theme.palette.primary.main }}>
-          <IconButton onClick={toggleDrawer}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
+            <DrawerHeader style={{ backgroundColor: theme.palette.primary.main }}>
+                <IconButton onClick={toggleDrawer}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
                 {/* Algorithm Name */}
                 <Tooltip title="Algorithm Name" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <LabelIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Algorithm Name" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <TextField
                             id="algorithm-name"
                             label="Algorithm Name"
@@ -96,20 +96,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                             size="small"
                             fullWidth
                         />
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Input Parameters */}
                 <Tooltip title="Input Parameters" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <TransitEnterexitIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Input Parameters" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <TextField
                             id="input-name"
                             label="Inputs"
@@ -126,20 +126,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                             fullWidth
                             margin="dense"
                         />
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Output Parameters */}
                 <Tooltip title="Output Parameters" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <CallMadeIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Output Parameters" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
                             <TextField
                                 id="output-name"
@@ -158,20 +158,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                                 margin="dense"
                             />
                         </div>
-                    </ListItemButton>
+                    </ListItem>
                 )}
                 <Divider />
                 {/* Add Blocks */}
                 <Tooltip title="Add Blocks" placement="right">
-                    <ListItemButton>
+                    <ListItem>
                         <ListItemIcon>
                             <AddCircleOutlineIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Add Blocks" />}
-                    </ListItemButton>
+                    </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItemButton>
+                    <ListItem>
                         <FormControl style={{ flex: 1, marginRight: '10px' }} size="small">
                             <InputLabel id="block-type-label">Block Type</InputLabel>
                             <Select
@@ -191,10 +191,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                         <Button variant="outlined" color="primary">
                             Add
                         </Button>
-                    </ListItemButton>
+                    </ListItem>
                 )}
             </List>
-      </Drawer>
+        </Drawer>
     );
 };
 
