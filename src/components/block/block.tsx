@@ -11,7 +11,7 @@ const Block = (props: BlockProps) => {
         <div>
             <Card variant='outlined'>
                 <CardContent>
-                    <Typography variant='subtitle1' color='secondary'>{props.expressionNumber.toFixed(1)} Expressions</Typography>
+                    <Typography variant='subtitle1' color='secondary'>{props.expressionNumber.toFixed(1)} {props.type}</Typography>
                     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'flex-end' }}>
                             {props.type !== BlockType.Expressions && <div><Typography variant='h6'>{props.type}</Typography></div>}

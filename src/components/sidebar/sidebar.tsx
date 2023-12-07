@@ -3,8 +3,6 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LabelIcon from '@mui/icons-material/Label';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 import { Divider, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -73,9 +71,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-interface RowItem {
-    id: string;
-}
+const Sidebar = ({ open, toggleDrawer }) => {
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
@@ -120,7 +116,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
                 </IconButton>
             </DrawerHeader>
             <Divider />
-            <List sx={{ padding: '0 16px' }}>
+            <List>
                 {/* Algorithm Name */}
                 <Tooltip title="Algorithm Name" placement="right">
                     <ListItem>
