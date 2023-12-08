@@ -33,7 +33,7 @@ const ParameterRowListItemComponent = ({
                         dataTypeValueChanged={onDataTypeChange(dictionary[row].id, type)}
                         onDeleted={onRemoveRow(dictionary[row].id, type)} />)}
                 {!keys.length && (
-                    <div className='w-full'><Typography variant='body2' className='text-center'>No Rows</Typography></div>
+                    <div className='w-full'><Typography variant='body2' className='text-center'>No Parameters</Typography></div>
                 )}
             </div>
         </ListItem>
