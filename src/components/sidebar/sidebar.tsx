@@ -73,7 +73,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
-    const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave } = useSidebarData();
+    const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave, algorithmName, onAlgorithmNameChange } = useSidebarData();
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader style={{ boxShadow: theme.shadows[4], backgroundColor: theme.palette.primary.main }}>
@@ -100,10 +100,12 @@ const Sidebar = ({ open, toggleDrawer }) => {
                             variant="outlined"
                             size="small"
                             fullWidth
+                            value={algorithmName}
+                            onChange={(e) => onAlgorithmNameChange(e.target.value)}
                         />
                     </ListItem>
                 )}
-                <Divider />
+                {!open && <Divider />}
                 {/* Input Parameters */}
                 <Tooltip title="Input Parameters" placement="right">
                     <ListItem>
@@ -122,6 +124,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
                         dictionary={inputDictionary}
                     />
                 )}
+                {!open && <Divider />}
                 {/* Output Parameters */}
                 <Tooltip title="Output Parameters" placement="right">
                     <ListItem>
@@ -140,9 +143,9 @@ const Sidebar = ({ open, toggleDrawer }) => {
                         dictionary={outputDictionary}
                     />
                 )}
-                <ListItem>
+                {open && <ListItem>
                     <Button variant='contained' color='primary' fullWidth onClick={onSave}>Save</Button>
-                </ListItem>
+                </ListItem>}
                 <Divider />
                 {/* Add Blocks */}
                 <Tooltip title="Add Blocks" placement="right">

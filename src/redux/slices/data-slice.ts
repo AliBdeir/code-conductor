@@ -12,6 +12,7 @@ export type ParameterRowType = {
 // }
 
 type DataSliceState = {
+    algorithmName: string;
     inputParameters: ParameterRowType[];
     outputParameters: ParameterRowType[];
 };
@@ -19,6 +20,7 @@ type DataSliceState = {
 const initialState: DataSliceState = {
     inputParameters: [],
     outputParameters: [],
+    algorithmName: '',
 }
 
 const dataSlice = createSlice({
@@ -28,6 +30,9 @@ const dataSlice = createSlice({
         setParameters: (state, action: PayloadAction<{ inputParameters: ParameterRowType[], outputParameters: ParameterRowType[] }>) => {
             state.inputParameters = action.payload.inputParameters;
             state.outputParameters = action.payload.outputParameters;
+        },
+        setAlgorithmName: (state, action: PayloadAction<string>) => {
+            state.algorithmName = action.payload;
         },
     }
 });

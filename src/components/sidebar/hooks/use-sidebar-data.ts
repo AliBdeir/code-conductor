@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ParameterRowType, dataActions } from "../../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -22,15 +22,23 @@ const toDictionary = (rows: ParameterRowType[]) =>
     }, {} as ParameterDictionary);
 
 const useSidebarData = () => {
+    // #region Redux
     const dispatch = useAppDispatch();
+    const algorithmNameRedux = useAppSelector(x => x.data.algorithmName);
     const inputRows = useAppSelector(x => x.data.inputParameters);
     const outputRows = useAppSelector(x => x.data.outputParameters);
     const dictionary = useMemo<Parameters>(() => ({
         inputDictionary: toDictionary(inputRows),
         outputDictionary: toDictionary(outputRows),
     }), [inputRows, outputRows]);
+    // #endregion
+
+    // #region Local
     const [rowData, setRowData] = useState<Parameters>(dictionary);
-    console.log(rowData);
+    const [algorithmName, setAlgorithmName] = useState<string>(algorithmNameRedux);
+    // #endregion
+
+    // #region Param text Changes
     const onChange = useCallback((id: string, type: RowType, key: 'dataType' | 'name') => (val: string) => {
         const clone = _.cloneDeep(rowData);
         const dictionary = type === 'input' ? clone.inputDictionary : clone.outputDictionary;
@@ -44,7 +52,9 @@ const useSidebarData = () => {
     const onDataTypeChange = useCallback((id: string, type: RowType) => (val: string) => {
         onChange(id, type, 'dataType')(val);
     }, [onChange]);
+    // #endregion
 
+    // #region Add/Remove row changes
     const onAddRow = useCallback((type: RowType) => () => {
         const clone = _.cloneDeep(rowData);
         const id = uuidv4();
@@ -65,12 +75,19 @@ const useSidebarData = () => {
         setRowData(clone);
     }, [rowData]);
 
+    // #endregion
+
+    const onAlgorithmNameChange = (val: string) => {
+        setAlgorithmName(val);
+    }
+
     const onSave = useCallback(() => {
         dispatch(dataActions.setParameters({
             inputParameters: Object.values(rowData.inputDictionary),
             outputParameters: Object.values(rowData.outputDictionary),
-        }))
-    }, [dispatch, rowData.inputDictionary, rowData.outputDictionary]);
+        }));
+        dispatch(dataActions.setAlgorithmName(algorithmName));
+    }, [dispatch, rowData.inputDictionary, rowData.outputDictionary, algorithmName]);
 
     return {
         rowData,
@@ -81,6 +98,8 @@ const useSidebarData = () => {
         inputDictionary: rowData.inputDictionary,
         outputDictionary: rowData.outputDictionary,
         onSave,
+        algorithmName,
+        onAlgorithmNameChange
     }
 }
 
