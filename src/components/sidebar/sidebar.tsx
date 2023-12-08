@@ -15,10 +15,11 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
-import { useState } from 'react';
+import { ParameterRowListItem } from './parameter-row-list-item';
 //custom components
 import TitleWithIconButton from '../titlewithicon/sidebar-tile';
-import ParameterRow from '../rows/parameter-row';
+import useSidebarData from './hooks/use-sidebar-data';
+
 
 const drawerWidth = 240;
 
@@ -69,48 +70,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-interface RowItem {
-    id: string;
-}
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
-
-    const [inputRows, setInputRows] = useState<RowItem[]>([]);
-    const [outputRows, setOutputRows] = useState<RowItem[]>([]);
-
-    const [parameterName, setParameterName] = useState('');
-    const [dataTypeName, setDataTypeName] = useState('');
-
-    const handleParameterNameChange = (newValue) => {
-        console.log(newValue);
-        setParameterName(newValue);
-    };
-
-    const handleDataTypeNameChange = (newValue) => {
-        console.log(newValue);
-        setDataTypeName(newValue);
-    };
-
-    const addInput = () => {
-        setInputRows(inputRows => [...inputRows, { id: `input-${inputRows.length}` }]);
-    };
-
-    const removeInput = (index: number) => {
-        setInputRows(inputRows => inputRows.filter((_, i) => i !== index));
-    };
-
-    const addOutput = () => {
-        setOutputRows(outputRows => [...outputRows, { id: `output-${outputRows.length}` }]);
-    };
-
-    const removeOutput = (index: number) => {
-        setOutputRows(outputRows => outputRows.filter((_, i) => i !== index));
-    };
-
+    const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave } = useSidebarData();
     return (
         <Drawer variant="permanent" open={open}>
-            <DrawerHeader style={{ boxShadow: theme.shadows[4],backgroundColor: theme.palette.primary.main }}>
+            <DrawerHeader style={{ boxShadow: theme.shadows[4], backgroundColor: theme.palette.primary.main }}>
                 <IconButton onClick={toggleDrawer}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
@@ -144,51 +110,39 @@ const Sidebar = ({ open, toggleDrawer }) => {
                         <ListItemIcon>
                             <TransitEnterexitIcon />
                         </ListItemIcon>
-                        {open && <TitleWithIconButton title="Input Params" icon={AddCircleOutlineIcon} onClick={addInput} />}
+                        {open && <TitleWithIconButton title="Input Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('input')} />}
                     </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItem>
-                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {inputRows.map((row, index) => (
-                        <ParameterRow
-                        parameterNameLabel="Name"
-                        parameterNameValue={parameterName}
-                        parameterNameChanged={handleParameterNameChange}
-                        dataTypeNameValue={dataTypeName}
-                        dataTypeNameChanged={handleDataTypeNameChange}
-                        onDeleted={() => removeInput(index)}
+                    <ParameterRowListItem
+                        type="input"
+                        onNameChange={onNameChange}
+                        onDataTypeChange={onDataTypeChange}
+                        onRemoveRow={onRemoveRow}
+                        dictionary={inputDictionary}
                     />
-                        ))}
-                        </div>
-                    </ListItem>
                 )}
-                <Divider />
                 {/* Output Parameters */}
                 <Tooltip title="Output Parameters" placement="right">
                     <ListItem>
                         <ListItemIcon>
                             <CallMadeIcon />
                         </ListItemIcon>
-                        {open && <TitleWithIconButton title="Output Params" icon={AddCircleOutlineIcon} onClick={addOutput} />}
+                        {open && <TitleWithIconButton title="Output Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('output')} />}
                     </ListItem>
                 </Tooltip>
                 {open && (
-                    <ListItem>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {outputRows.map((row, index) => (
-                        <ParameterRow
-                        parameterNameLabel="Name"
-                        parameterNameValue={parameterName}
-                        parameterNameChanged={handleParameterNameChange}
-                        dataTypeNameValue={dataTypeName}
-                        dataTypeNameChanged={handleDataTypeNameChange}
-                        onDeleted={() => removeOutput(index)}
+                    <ParameterRowListItem
+                        type="output"
+                        onNameChange={onNameChange}
+                        onDataTypeChange={onDataTypeChange}
+                        onRemoveRow={onRemoveRow}
+                        dictionary={outputDictionary}
                     />
-                        ))}
-                        </div>
-                    </ListItem>
                 )}
+                <ListItem>
+                    <Button variant='contained' color='primary' fullWidth onClick={onSave}>Save</Button>
+                </ListItem>
                 <Divider />
                 {/* Add Blocks */}
                 <Tooltip title="Add Blocks" placement="right">

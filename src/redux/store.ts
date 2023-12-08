@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { layoutReducers } from './slices/layout-slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { dataReducer } from './slices/data-slice'
 
 export const store = configureStore({
   reducer: combineReducers({
     layout: layoutReducers,
+    data: dataReducer,
   }),
 })
 
