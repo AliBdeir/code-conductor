@@ -10,13 +10,15 @@ export type BaseBlock = {
     id: string;
     type: BlockType;
     label: string;
-    children: BaseBlock[];
-  };
+};
 
-  export type ControlBlock = BaseBlock & {
+export type ControlBlock = BaseBlock & {
     condition: string;
-  };
-  
-  export type StatementBlock = BaseBlock & {
+    children: Block[];
+};
+
+export type StatementBlock = BaseBlock & { // Statement block cannot have children
     action: string;
-  };
+};
+
+export type Block = ControlBlock | StatementBlock;

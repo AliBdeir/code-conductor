@@ -1,4 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Block } from "../../components/block/types";
+import { findBlockById, removeBlockById } from "../../components/block/tools";
 
 export type ParameterRowType = {
     name: string;
@@ -7,20 +9,18 @@ export type ParameterRowType = {
     type: 'input' | 'output';
 }
 
-// type ParameterDictionary = {
-//     [key: string]: 
-// }
-
 type DataSliceState = {
     algorithmName: string;
     inputParameters: ParameterRowType[];
     outputParameters: ParameterRowType[];
+    blocks: Block[];
 };
 
 const initialState: DataSliceState = {
     inputParameters: [],
     outputParameters: [],
     algorithmName: '',
+    blocks: [],
 }
 
 const dataSlice = createSlice({
@@ -33,6 +33,28 @@ const dataSlice = createSlice({
         },
         setAlgorithmName: (state, action: PayloadAction<string>) => {
             state.algorithmName = action.payload;
+        },
+        addBlock: (state, { payload }: PayloadAction<{
+            parentId: string | null;
+            block: Block;
+        }>) => {
+            if (payload.parentId === null) {
+                state.blocks.push(payload.block);
+                return;
+            }
+            const found = findBlockById(state.blocks, payload.parentId);
+            if (found && 'children' in found) {
+                found.children.push(payload.block);
+            }
+        },
+        removeBlock: (state, { payload }: PayloadAction<string>) => {
+            state.blocks = removeBlockById(state.blocks, payload);
+        },
+        updateBlock: (state, { payload }: PayloadAction<{ id: string; block: Block }>) => {
+            const found = findBlockById(state.blocks, payload.id);
+            if (found) {
+                Object.assign(found, payload.block);
+            }
         },
     }
 });
