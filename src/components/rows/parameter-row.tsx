@@ -37,7 +37,7 @@ const ParameterRow = ({
                     onChange={(e) => dataTypeNameChanged(e.target.value)}
                 />
             </div>
-            <div>
+            <div className='flex justify-center'>
                 <IconButton onClick={onDeleted}><DeleteIcon /></IconButton>
             </div>
         </div>

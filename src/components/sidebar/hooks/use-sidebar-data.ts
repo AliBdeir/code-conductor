@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ParameterRowType, dataActions } from "../../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
