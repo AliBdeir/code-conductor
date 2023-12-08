@@ -77,7 +77,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader style={{ boxShadow: theme.shadows[4], backgroundColor: theme.palette.primary.main }}>
-                <IconButton onClick={toggleDrawer}>
+                <IconButton onClick={toggleDrawer} style={{ color: theme.palette.primary.contrastText }} size='large'>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
             </DrawerHeader>
@@ -180,7 +180,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
                     </ListItem>
                 )}
             </List>
-        </Drawer>
+        </Drawer >
     );
 };
 
