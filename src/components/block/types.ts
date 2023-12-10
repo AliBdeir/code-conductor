@@ -3,6 +3,7 @@ export enum BlockType {
     If = 'IF',
     For = 'FOR',
     While = 'WHILE',
+    Method = 'METHOD',
 }
 export type CodeBlock = {
     id: string;

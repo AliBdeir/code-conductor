@@ -1,7 +1,7 @@
-import { TreeItems } from 'dnd-kit-sortable-tree';
+import { TreeItem, TreeItems } from 'dnd-kit-sortable-tree';
 import { CodeBlock } from "./types";
 
-export function findBlockById(blocks: TreeItems<CodeBlock>, id: string): CodeBlock | null {
+export function findBlockById(blocks: TreeItems<CodeBlock>, id: string): TreeItem<CodeBlock> | null {
     for (const block of blocks) {
         if (block.id === id) {
             return block;

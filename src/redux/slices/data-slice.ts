@@ -19,9 +19,14 @@ type DataSliceState = {
 };
 
 const initialState: DataSliceState = {
-    inputParameters: [],
+    inputParameters: [{
+        dataType: 'int[]',
+        name: 'array',
+        id: 'array1',
+        type: 'input',
+    }],
     outputParameters: [],
-    algorithmName: '',
+    algorithmName: 'Bubble Sort',
     blocks: [data],
 }
 
@@ -58,7 +63,13 @@ const dataSlice = createSlice({
         },
         setBlocks: (state, { payload }: PayloadAction<TreeItems<CodeBlock>>) => {
             state.blocks = payload;
-        }
+        },
+        toggleBlockCollapse: (state, { payload }: PayloadAction<string>) => {
+            const found = findBlockById(state.blocks, payload);
+            if (found) {
+                found.collapsed = !found.collapsed;
+            }
+        },
     }
 });
 

@@ -10,6 +10,7 @@ const bubbleSortAlgorithm: TreeItem<CodeBlock> = {
         {
             id: 'initialization',
             type: BlockType.Expressions,
+            canHaveChildren: false,
             description: 'Initialize swapped flag',
             code: 'swapped = false'
         },
@@ -29,7 +30,8 @@ const bubbleSortAlgorithm: TreeItem<CodeBlock> = {
                             id: 'swap',
                             type: BlockType.Expressions,
                             description: 'Swap elements',
-                            code: '[array[i], array[i + 1]] = [array[i + 1], array[i]]; swapped = true;'
+                            code: '[array[i], array[i + 1]] = [array[i + 1], array[i]]; swapped = true;',
+                            canHaveChildren: false,
                         }
                     ]
                 }

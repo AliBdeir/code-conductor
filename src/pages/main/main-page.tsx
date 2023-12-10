@@ -3,9 +3,8 @@ import './main-page.css';
 
 function MainPage() {
     return (
-        <div className='w-full h-full'>
-            <BlockTreeComponent
-            />
+        <div className='w-full h-full pt-4'>
+            <BlockTreeComponent />
         </div>
     )
 }
