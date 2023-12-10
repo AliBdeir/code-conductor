@@ -1,9 +1,12 @@
 import {
-    SortableTree
+    SortableTree, TreeItems
 } from "dnd-kit-sortable-tree";
-import { useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import BlockTreeItemComponent from "./tree-item";
 import React from "react";
+import { CodeBlock } from "../block/types";
+import { dataActions } from "../../redux/slices/data-slice";
+import { ItemChangedReason } from "dnd-kit-sortable-tree/dist/types";
 
 type BlockTreeComponentProps = {
     className?: string;
@@ -11,14 +14,17 @@ type BlockTreeComponentProps = {
 
 const _BlockTreeComponent = (props: BlockTreeComponentProps) => {
     const blocks = useAppSelector(x => x.data.blocks);
+    const dispatch = useAppDispatch();
+    const itemsChanged = (items: TreeItems<CodeBlock>, reason: ItemChangedReason<CodeBlock>) => {
+        console.log('Items changed:', items, 'Reason:', reason);
+        dispatch(dataActions.setBlocks(items));
+    }
     return (
         <div className={props.className}>
             <SortableTree
                 items={blocks}
                 TreeItemComponent={BlockTreeItemComponent}
-                onItemsChanged={(items, reason) => {
-                    console.log('New Items', items, 'Reason:', reason)
-                }}
+                onItemsChanged={itemsChanged}
             />
         </div>
     )

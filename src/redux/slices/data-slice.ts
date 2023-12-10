@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { TreeItem, TreeItems } from "dnd-kit-sortable-tree";
 import { findBlockById, removeBlockById } from "../../components/block/tools";
 import { CodeBlock } from "../../components/block/types";
+import data from "./dummy-data";
 
 export type ParameterRowType = {
     name: string;
@@ -21,7 +22,7 @@ const initialState: DataSliceState = {
     inputParameters: [],
     outputParameters: [],
     algorithmName: '',
-    blocks: [],
+    blocks: [data],
 }
 
 const dataSlice = createSlice({
@@ -55,6 +56,9 @@ const dataSlice = createSlice({
                 Object.assign(found, payload.block);
             }
         },
+        setBlocks: (state, { payload }: PayloadAction<TreeItems<CodeBlock>>) => {
+            state.blocks = payload;
+        }
     }
 });
 
