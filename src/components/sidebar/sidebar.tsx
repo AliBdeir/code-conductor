@@ -76,114 +76,118 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
     const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave, algorithmName, onAlgorithmNameChange } = useSidebarMetaData();
-    const {addBlock,  setBlockType, blockType} = useSidebarBlockAdd();
+    const { addBlock, setBlockType, blockType } = useSidebarBlockAdd();
     return (
-        <Drawer variant="permanent" open={open}>
-            <DrawerHeader style={{ boxShadow: theme.shadows[4], backgroundColor: theme.palette.primary.main }}>
+        <Drawer variant="permanent" open={open} sx={{
+            "& .MuiDrawer-paper": { borderWidth: 0 }
+        }}>
+            <DrawerHeader style={{ backgroundColor: theme.palette.primary.main, borderRight: '1px solid rgb(0, 0, 0, 0.2)' }}>
                 <IconButton onClick={toggleDrawer} style={{ color: theme.palette.primary.contrastText }} size='large'>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
             </DrawerHeader>
             <Divider />
-            <List>
-                {/* Algorithm Name */}
-                <Tooltip title="Algorithm Name" placement="right">
-                    <ListItem>
-                        <ListItemIcon>
-                            <LabelIcon />
-                        </ListItemIcon>
-                        {open && <ListItemText primary="Algorithm Name" />}
-                    </ListItem>
-                </Tooltip>
-                {open && (
-                    <ListItem>
-                        <TextField
-                            id="algorithm-name"
-                            label="Algorithm Name"
-                            variant="outlined"
-                            size="small"
-                            fullWidth
-                            value={algorithmName}
-                            onChange={(e) => onAlgorithmNameChange(e.target.value)}
-                        />
-                    </ListItem>
-                )}
-                {!open && <Divider />}
-                {/* Input Parameters */}
-                <Tooltip title="Input Parameters" placement="right">
-                    <ListItem>
-                        <ListItemIcon>
-                            <TransitEnterexitIcon />
-                        </ListItemIcon>
-                        {open && <TitleWithIconButton title="Input Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('input')} />}
-                    </ListItem>
-                </Tooltip>
-                {open && (
-                    <ParameterRowListItem
-                        type="input"
-                        onNameChange={onNameChange}
-                        onDataTypeChange={onDataTypeChange}
-                        onRemoveRow={onRemoveRow}
-                        dictionary={inputDictionary}
-                    />
-                )}
-                {!open && <Divider />}
-                {/* Output Parameters */}
-                <Tooltip title="Output Parameters" placement="right">
-                    <ListItem>
-                        <ListItemIcon>
-                            <CallMadeIcon />
-                        </ListItemIcon>
-                        {open && <TitleWithIconButton title="Output Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('output')} />}
-                    </ListItem>
-                </Tooltip>
-                {open && (
-                    <ParameterRowListItem
-                        type="output"
-                        onNameChange={onNameChange}
-                        onDataTypeChange={onDataTypeChange}
-                        onRemoveRow={onRemoveRow}
-                        dictionary={outputDictionary}
-                    />
-                )}
-                {open && <ListItem>
-                    <Button variant='contained' color='primary' fullWidth onClick={onSave}>Save</Button>
-                </ListItem>}
-                <Divider />
-                {/* Add Blocks */}
-                <Tooltip title="Add Blocks" placement="right">
-                    <ListItem>
-                        <ListItemIcon>
-                            <AddCircleOutlineIcon />
-                        </ListItemIcon>
-                        {open && <ListItemText primary="Add Blocks" />}
-                    </ListItem>
-                </Tooltip>
-                {open && (
-                    <ListItem>
-                        <FormControl style={{ flex: 1, marginRight: '10px' }} size="small">
-                            <InputLabel id="block-type-label">Block Type</InputLabel>
-                            <Select
-                                labelId="block-type-label"
-                                id="block-type-select"
-                                value={blockType ?? ''}
-                                label="Block Type"
+            <div style={{ borderRight: `1px solid ${theme.palette.divider}` }}>
+                <List>
+                    {/* Algorithm Name */}
+                    <Tooltip title="Algorithm Name" placement="right">
+                        <ListItem>
+                            <ListItemIcon>
+                                <LabelIcon />
+                            </ListItemIcon>
+                            {open && <ListItemText primary="Algorithm Name" />}
+                        </ListItem>
+                    </Tooltip>
+                    {open && (
+                        <ListItem>
+                            <TextField
+                                id="algorithm-name"
+                                label="Algorithm Name"
+                                variant="outlined"
+                                size="small"
                                 fullWidth
-                                onChange={(e) => setBlockType(e.target.value as BlockType)}
-                                
-                            >
-                                <MenuItem value={BlockType.While}>While Loop</MenuItem>
-                                <MenuItem value={BlockType.If}>If Statement</MenuItem>
-                                <MenuItem value={BlockType.For}>For Loop</MenuItem>
-                                <MenuItem value={BlockType.Expressions}>Expression</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Button variant="outlined" color="primary" onClick={addBlock}>
-                            Add
-                        </Button>
-                    </ListItem>
-                )}
-            </List>
+                                value={algorithmName}
+                                onChange={(e) => onAlgorithmNameChange(e.target.value)}
+                            />
+                        </ListItem>
+                    )}
+                    {!open && <Divider />}
+                    {/* Input Parameters */}
+                    <Tooltip title="Input Parameters" placement="right">
+                        <ListItem>
+                            <ListItemIcon>
+                                <TransitEnterexitIcon />
+                            </ListItemIcon>
+                            {open && <TitleWithIconButton title="Input Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('input')} />}
+                        </ListItem>
+                    </Tooltip>
+                    {open && (
+                        <ParameterRowListItem
+                            type="input"
+                            onNameChange={onNameChange}
+                            onDataTypeChange={onDataTypeChange}
+                            onRemoveRow={onRemoveRow}
+                            dictionary={inputDictionary}
+                        />
+                    )}
+                    {!open && <Divider />}
+                    {/* Output Parameters */}
+                    <Tooltip title="Output Parameters" placement="right">
+                        <ListItem>
+                            <ListItemIcon>
+                                <CallMadeIcon />
+                            </ListItemIcon>
+                            {open && <TitleWithIconButton title="Output Params" icon={<AddCircleOutlineIcon />} onClick={onAddRow('output')} />}
+                        </ListItem>
+                    </Tooltip>
+                    {open && (
+                        <ParameterRowListItem
+                            type="output"
+                            onNameChange={onNameChange}
+                            onDataTypeChange={onDataTypeChange}
+                            onRemoveRow={onRemoveRow}
+                            dictionary={outputDictionary}
+                        />
+                    )}
+                    {open && <ListItem>
+                        <Button variant='contained' color='primary' fullWidth onClick={onSave}>Save</Button>
+                    </ListItem>}
+                    <Divider />
+                    {/* Add Blocks */}
+                    <Tooltip title="Add Blocks" placement="right">
+                        <ListItem>
+                            <ListItemIcon>
+                                <AddCircleOutlineIcon />
+                            </ListItemIcon>
+                            {open && <ListItemText primary="Add Blocks" />}
+                        </ListItem>
+                    </Tooltip>
+                    {open && (
+                        <ListItem>
+                            <FormControl style={{ flex: 1, marginRight: '10px' }} size="small">
+                                <InputLabel id="block-type-label">Block Type</InputLabel>
+                                <Select
+                                    labelId="block-type-label"
+                                    id="block-type-select"
+                                    value={blockType ?? ''}
+                                    label="Block Type"
+                                    fullWidth
+                                    onChange={(e) => setBlockType(e.target.value as BlockType)}
+
+                                >
+                                    <MenuItem value={BlockType.While}>While Loop</MenuItem>
+                                    <MenuItem value={BlockType.If}>If Statement</MenuItem>
+                                    <MenuItem value={BlockType.For}>For Loop</MenuItem>
+                                    <MenuItem value={BlockType.Expressions}>Expression</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <Button variant="outlined" color="primary" onClick={addBlock}>
+                                Add
+                            </Button>
+                        </ListItem>
+                    )}
+                </List>
+            </div>
         </Drawer >
     );
 };
