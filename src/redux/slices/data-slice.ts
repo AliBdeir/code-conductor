@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Block } from "../../components/block/types";
+import { TreeItem, TreeItems } from "dnd-kit-sortable-tree";
 import { findBlockById, removeBlockById } from "../../components/block/tools";
+import { CodeBlock } from "../../components/block/types";
 
 export type ParameterRowType = {
     name: string;
@@ -13,7 +14,7 @@ type DataSliceState = {
     algorithmName: string;
     inputParameters: ParameterRowType[];
     outputParameters: ParameterRowType[];
-    blocks: Block[];
+    blocks: TreeItems<CodeBlock>;
 };
 
 const initialState: DataSliceState = {
@@ -36,21 +37,19 @@ const dataSlice = createSlice({
         },
         addBlock: (state, { payload }: PayloadAction<{
             parentId: string | null;
-            block: Block;
+            block: TreeItem<CodeBlock>;
         }>) => {
             if (payload.parentId === null) {
                 state.blocks.push(payload.block);
-                return;
+            } else {
+                // TODO: Implement
             }
-            const found = findBlockById(state.blocks, payload.parentId);
-            if (found && 'children' in found) {
-                found.children.push(payload.block);
-            }
+            
         },
         removeBlock: (state, { payload }: PayloadAction<string>) => {
             state.blocks = removeBlockById(state.blocks, payload);
         },
-        updateBlock: (state, { payload }: PayloadAction<{ id: string; block: Block }>) => {
+        updateBlock: (state, { payload }: PayloadAction<{ id: string; block: CodeBlock }>) => {
             const found = findBlockById(state.blocks, payload.id);
             if (found) {
                 Object.assign(found, payload.block);

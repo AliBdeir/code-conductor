@@ -21,7 +21,7 @@ const toDictionary = (rows: ParameterRowType[]) =>
         return acc;
     }, {} as ParameterDictionary);
 
-const useSidebarData = () => {
+const useSidebarMetaData = () => {
     // #region Redux
     const dispatch = useAppDispatch();
     const algorithmNameRedux = useAppSelector(x => x.data.algorithmName);
@@ -103,4 +103,4 @@ const useSidebarData = () => {
     }
 }
 
-export default useSidebarData;
+export default useSidebarMetaData;

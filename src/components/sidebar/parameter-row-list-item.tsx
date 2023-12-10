@@ -1,6 +1,6 @@
 import ListItem from "@mui/material/ListItem";
 import ParameterRow from "../rows/parameter-row";
-import { ParameterDictionary, RowType } from "./hooks/use-sidebar-data";
+import { ParameterDictionary, RowType } from "./hooks/use-sidebar-meta-data";
 import { memo, useMemo } from "react";
 import Typography from "@mui/material/Typography";
 

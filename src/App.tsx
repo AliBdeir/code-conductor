@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import Toolbar from './components/header/header';
 import Sidebar from './components/sidebar/sidebar';
 import MainPage from './pages/main/main-page';
@@ -16,6 +17,7 @@ export default function App() {
                     <MainPage />
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

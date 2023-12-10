@@ -1,13 +1,14 @@
-import { Block } from "./types";
+import { TreeItems } from 'dnd-kit-sortable-tree';
+import { CodeBlock } from "./types";
 
-export function findBlockById(blocks: Block[], id: string): Block | null {
+export function findBlockById(blocks: TreeItems<CodeBlock>, id: string): CodeBlock | null {
     for (const block of blocks) {
         if (block.id === id) {
             return block;
         }
 
         // If it's a ControlBlock, search recursively in its children
-        if ("children" in block) {
+        if (block.children) {
             const found = findBlockById(block.children, id);
             if (found) {
                 return found;
@@ -19,13 +20,13 @@ export function findBlockById(blocks: Block[], id: string): Block | null {
     return null;
 }
 
-export function removeBlockById(blocks: Block[], id: string): Block[] {
+export function removeBlockById(blocks: TreeItems<CodeBlock>, id: string): TreeItems<CodeBlock> {
     // Filter out the block with the given ID
     let updatedBlocks = blocks.filter(block => block.id !== id);
 
     // Iterate over the blocks to check and update ControlBlocks
     updatedBlocks = updatedBlocks.map(block => {
-        if ("children" in block) {
+        if (block.children) {
             // Recursively remove the block from children
             block.children = removeBlockById(block.children, id);
         }

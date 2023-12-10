@@ -18,7 +18,9 @@ import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import { ParameterRowListItem } from './parameter-row-list-item';
 //custom components
 import TitleWithIconButton from '../titlewithicon/sidebar-tile';
-import useSidebarData from './hooks/use-sidebar-data';
+import useSidebarMetaData from './hooks/use-sidebar-meta-data';
+import useSidebarBlockAdd from './hooks/use-sidebar-block-add';
+import { BlockType } from '../block/types';
 
 
 const drawerWidth = 240;
@@ -73,7 +75,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
-    const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave, algorithmName, onAlgorithmNameChange } = useSidebarData();
+    const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave, algorithmName, onAlgorithmNameChange } = useSidebarMetaData();
+    const {addBlock,  setBlockType, blockType} = useSidebarBlockAdd();
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader style={{ boxShadow: theme.shadows[4], backgroundColor: theme.palette.primary.main }}>
@@ -163,18 +166,19 @@ const Sidebar = ({ open, toggleDrawer }) => {
                             <Select
                                 labelId="block-type-label"
                                 id="block-type-select"
-                                value=""
+                                value={blockType ?? ''}
                                 label="Block Type"
                                 fullWidth
+                                onChange={(e) => setBlockType(e.target.value as BlockType)}
+                                
                             >
-                                <MenuItem value="While Loop">While Loop</MenuItem>
-                                <MenuItem value="If Statement">If Statement</MenuItem>
-                                <MenuItem value="If-Else Statement">If-Else Statement</MenuItem>
-                                <MenuItem value="For Loop">For Loop</MenuItem>
-                                <MenuItem value="Expression">Expression</MenuItem>
+                                <MenuItem value={BlockType.While}>While Loop</MenuItem>
+                                <MenuItem value={BlockType.If}>If Statement</MenuItem>
+                                <MenuItem value={BlockType.For}>For Loop</MenuItem>
+                                <MenuItem value={BlockType.Expressions}>Expression</MenuItem>
                             </Select>
                         </FormControl>
-                        <Button variant="outlined" color="primary">
+                        <Button variant="outlined" color="primary" onClick={addBlock}>
                             Add
                         </Button>
                     </ListItem>

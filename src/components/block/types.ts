@@ -5,20 +5,14 @@ export enum BlockType {
     While = 'WHILE',
 }
 
+export function isControlBlock(blockType: BlockType){
+    return blockType === BlockType.If || blockType === BlockType.For || blockType === BlockType.While;
+}
 
-export type BaseBlock = {
+
+export type CodeBlock = {
     id: string;
     type: BlockType;
-    label: string;
+    description: string;
+    code: string;
 };
-
-export type ControlBlock = BaseBlock & {
-    condition: string;
-    children: Block[];
-};
-
-export type StatementBlock = BaseBlock & { // Statement block cannot have children
-    action: string;
-};
-
-export type Block = ControlBlock | StatementBlock;
