@@ -1,7 +1,7 @@
 import {
     SortableTree, TreeItems
 } from "dnd-kit-sortable-tree";
-import { ItemChangedReason } from "dnd-kit-sortable-tree/dist/types";
+import { FlattenedItem, ItemChangedReason } from "dnd-kit-sortable-tree/dist/types";
 import React, { useMemo } from "react";
 import { dataActions } from "../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
@@ -15,6 +15,7 @@ type BlockTreeComponentProps = {
 const _BlockTreeComponent = (props: BlockTreeComponentProps) => {
     const blocks = useAppSelector(x => x.data.blocks);
     const treeBlocks = useMemo<TreeItems<CodeBlock>>(() => {
+        if (blocks[0]?.id === 'root') return blocks;
         return [
             {
                 id: 'root',
@@ -39,7 +40,6 @@ const _BlockTreeComponent = (props: BlockTreeComponentProps) => {
                 TreeItemComponent={BlockTreeItemComponent}
                 onItemsChanged={itemsChanged}
                 indentationWidth={40}
-                keepGhostInPlace
             />
         </div>
     )

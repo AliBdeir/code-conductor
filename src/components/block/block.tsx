@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 
 type BlockProps = {
     type: BlockType; // Defined in ./types.ts
-    expressionNumber: number;
+    // expressionNumber: string;
     className?: string;
     codeValue: string;
     onCodeValueChanged: (newValue: string) => void;
@@ -31,7 +31,7 @@ const _Block = (props: BlockProps) => {
                     ) : (
                         <div className='w-full flex flex-col gap-1'>
                             <div className='w-full flex flex-row gap-2 items-end'>
-                                <Typography variant='subtitle1' color='secondary'>{props.expressionNumber.toFixed(1)}</Typography>
+                                {/* <Typography variant='subtitle1' color='secondary'>{props.expressionNumber}</Typography> */}
                                 {controlBlock && <div><Typography variant='h6'>{props.type}</Typography></div>}
                                 <div style={{ flex: '1' }}>
                                     <TextField

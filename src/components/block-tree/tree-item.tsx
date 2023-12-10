@@ -5,6 +5,7 @@ import { dataActions } from "../../redux/slices/data-slice";
 import { useAppDispatch } from "../../redux/store";
 import BlockComponent from "../block/block";
 import { CodeBlock } from "../block/types";
+import { FlattenedItem } from "dnd-kit-sortable-tree/dist/types";
 
 const _BlockTreeItemComponent = React.forwardRef<
     HTMLDivElement,
@@ -30,11 +31,12 @@ const _BlockTreeItemComponent = React.forwardRef<
             }
         }))
     }
+
     return (
         <FolderTreeItemWrapper {...props} showDragHandle={false} hideCollapseButton contentClassName="!p-0 !border-0 !mb-2 !w-full !max-w-3xl" ref={ref} >
             <BlockComponent
                 className={clsx("w-full max-w-3xl", props.className)}
-                expressionNumber={0}
+                // expressionNumber={props.parent ? getBlockNumber(props.parent) : '0'}
                 type={props.item.type}
                 codeValue={block.codeValue}
                 onCodeValueChanged={(newValue) => setBlock({ ...block, codeValue: newValue })}
@@ -46,6 +48,13 @@ const _BlockTreeItemComponent = React.forwardRef<
         </FolderTreeItemWrapper >
     );
 });
+
+// const getBlockNumber = (item: FlattenedItem<CodeBlock>, ancestry: number[] = []): string => {
+//     // Construct the block number for the current item
+//     const currentBlockNumber = [...ancestry, item.index + 1].join(".");
+
+//     return currentBlockNumber;
+// };
 
 const BlockTreeItemComponent = React.memo(_BlockTreeItemComponent);
 
