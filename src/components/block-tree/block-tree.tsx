@@ -24,6 +24,7 @@ const _BlockTreeComponent = (props: BlockTreeComponentProps) => {
                 description: '',
                 canHaveChildren: true,
                 children: blocks,
+                collapsed: false,
             }
         ]
     }, [blocks]);

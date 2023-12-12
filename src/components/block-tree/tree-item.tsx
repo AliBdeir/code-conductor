@@ -32,7 +32,7 @@ const _BlockTreeItemComponent = React.forwardRef<
     }
 
     return (
-        <FolderTreeItemWrapper {...props} showDragHandle={false} hideCollapseButton contentClassName="!p-0 !border-0 !mb-2 !w-full !max-w-3xl" ref={ref} >
+        <FolderTreeItemWrapper {...props} showDragHandle={false} hideCollapseButton disableCollapseOnItemClick contentClassName="!p-0 !border-0 !mb-2 !w-full !max-w-3xl" ref={ref} >
             <BlockComponent
                 className={clsx("w-full max-w-3xl", props.className)}
                 // expressionNumber={props.parent ? getBlockNumber(props.parent) : '0'}
