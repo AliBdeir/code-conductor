@@ -1,31 +1,12 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { layoutReducers } from './slices/layout-slice'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { dataReducer } from './slices/data-slice'
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { dataReducer } from './slices/data-slice';
+import { layoutReducers } from './slices/layout-slice';
+import { StateLoader as StateLoaderClass } from '../tools/persistence';
 
+const stateLoader = new StateLoaderClass('state');
 
-const loadState = (): RootState | undefined => {
-    try {
-      const serializedState = localStorage.getItem('state');
-      if (serializedState === null) {
-        return undefined;
-      }
-      return JSON.parse(serializedState);
-    } catch (err) {
-      return undefined;
-    }
-  };
-
-  export const saveState = (state: RootState) => {
-    try {
-      const serializedState = JSON.stringify(state);
-      localStorage.setItem('state', serializedState);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-const persistedState = loadState() as any;
+const persistedState = stateLoader.loadState() as any;
 
 export const store = configureStore({
   reducer: combineReducers({
@@ -38,7 +19,7 @@ export const store = configureStore({
 
 // Subscribe to store changes and save the state to localStorage
 store.subscribe(() => {
-    saveState(store.getState());
+    stateLoader.saveState(store.getState());
   });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
