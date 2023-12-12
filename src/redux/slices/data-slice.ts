@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { TreeItem, TreeItems } from "dnd-kit-sortable-tree";
 import { findBlockById, removeBlockById } from "../../components/block/tools";
 import { CodeBlock } from "../../components/block/types";
-import data from "./dummy-data";
 
 export type ParameterRowType = {
     name: string;
@@ -11,7 +10,7 @@ export type ParameterRowType = {
     type: 'input' | 'output';
 }
 
-type DataSliceState = {
+export type DataSliceState = {
     algorithmName: string;
     inputParameters: ParameterRowType[];
     outputParameters: ParameterRowType[];
@@ -19,15 +18,10 @@ type DataSliceState = {
 };
 
 const initialState: DataSliceState = {
-    inputParameters: [{
-        dataType: 'int[]',
-        name: 'array',
-        id: 'array1',
-        type: 'input',
-    }],
+    inputParameters: [],
     outputParameters: [],
-    algorithmName: 'Bubble Sort',
-    blocks: [data],
+    algorithmName: '',
+    blocks: [],
 }
 
 const dataSlice = createSlice({
@@ -70,6 +64,12 @@ const dataSlice = createSlice({
                 found.collapsed = !found.collapsed;
             }
         },
+        setDataState: (_, { payload }: PayloadAction<DataSliceState>) => {
+            return payload;
+        },
+        clearDataState: () => {
+            return initialState;
+        }
     }
 });
 

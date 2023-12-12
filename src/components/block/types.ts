@@ -1,6 +1,7 @@
 export enum BlockType {
     Expressions = 'Expression(s)',
     If = 'IF',
+    Else = 'ELSE',
     For = 'FOR',
     While = 'WHILE',
     Method = 'METHOD',

@@ -1,10 +1,11 @@
 import { TreeItem } from "dnd-kit-sortable-tree";
-import { CodeBlock, BlockType } from "../../components/block/types";
+import { CodeBlock, BlockType } from "../../../components/block/types";
+import { DataSliceState } from "../data-slice";
 
 const bubbleSortAlgorithm: TreeItem<CodeBlock> = {
     id: 'bubble-sort-root',
     type: BlockType.While,
-    description: 'Root block for Bubble Sort',
+    description: 'While a swap has occurred',
     code: 'while (swapped)',
     children: [
         {
@@ -39,5 +40,17 @@ const bubbleSortAlgorithm: TreeItem<CodeBlock> = {
         }
     ]
 };
+
+export const bubbleSortState: DataSliceState = {
+    inputParameters: [{
+        dataType: 'int[]',
+        name: 'array',
+        id: 'array1',
+        type: 'input',
+    }],
+    outputParameters: [],
+    algorithmName: 'Bubble Sort',
+    blocks: [bubbleSortAlgorithm],
+}
 
 export default bubbleSortAlgorithm;

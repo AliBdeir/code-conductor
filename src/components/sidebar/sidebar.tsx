@@ -21,6 +21,10 @@ import TitleWithIconButton from '../titlewithicon/sidebar-tile';
 import useSidebarMetaData from './hooks/use-sidebar-meta-data';
 import useSidebarBlockAdd from './hooks/use-sidebar-block-add';
 import { BlockType } from '../block/types';
+import AreYouSureDialog from './are-you-sure';
+import { useState } from 'react';
+import { useAppDispatch } from '../../redux/store';
+import { dataActions } from '../../redux/slices/data-slice';
 
 
 const drawerWidth = 240;
@@ -75,8 +79,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Sidebar = ({ open, toggleDrawer }) => {
     const theme = useTheme();
+    const dispatch = useAppDispatch();
     const { inputDictionary, outputDictionary, onAddRow, onRemoveRow, onNameChange, onDataTypeChange, onSave, algorithmName, onAlgorithmNameChange } = useSidebarMetaData();
     const { addBlock, setBlockType, blockType } = useSidebarBlockAdd();
+    const [areYouSureOpen, setAreYouSureOpen] = useState(false);
+    const onClear = () => {
+        dispatch(dataActions.clearDataState());
+        setAreYouSureOpen(false);
+    }
     return (
         <Drawer variant="permanent" open={open} sx={{
             "& .MuiDrawer-paper": { borderWidth: 0 }
@@ -186,8 +196,17 @@ const Sidebar = ({ open, toggleDrawer }) => {
                             </Button>
                         </ListItem>
                     )}
+                    {open && (
+                        <>
+                            <Divider />
+                            <ListItem>
+                                <Button fullWidth variant='contained' color='error' onClick={() => setAreYouSureOpen(true)}>Clear Data</Button>
+                            </ListItem>
+                        </>
+                    )}
                 </List>
             </div>
+            <AreYouSureDialog onClose={() => setAreYouSureOpen(false)} onYes={onClear} open={areYouSureOpen} />
         </Drawer >
     );
 };

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ParameterRowType, dataActions } from "../../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -37,6 +37,16 @@ const useSidebarMetaData = () => {
     const [rowData, setRowData] = useState<Parameters>(dictionary);
     const [algorithmName, setAlgorithmName] = useState<string>(algorithmNameRedux);
     // #endregion
+
+    useEffect(() => {
+        setRowData({
+            inputDictionary: toDictionary(inputRows),
+            outputDictionary: toDictionary(outputRows),
+        });
+    }, [inputRows, outputRows]);
+    useEffect(() => {
+        setAlgorithmName(algorithmNameRedux);
+    }, [algorithmNameRedux]);
 
     // #region Param text Changes
     const onChange = useCallback((id: string, type: RowType, key: 'dataType' | 'name') => (val: string) => {
