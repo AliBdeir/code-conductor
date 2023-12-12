@@ -7,6 +7,9 @@ import { dataActions } from "../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { BlockType, CodeBlock } from "../block/types";
 import BlockTreeItemComponent from "./tree-item";
+import clsx from "clsx";
+import Typewriter from 'typewriter-effect';
+
 
 type BlockTreeComponentProps = {
     className?: string;
@@ -34,14 +37,31 @@ const _BlockTreeComponent = (props: BlockTreeComponentProps) => {
         dispatch(dataActions.setBlocks(items));
     }
     return (
-        <div className={props.className}>
-            <SortableTree
-                indicator={false}
-                items={treeBlocks}
-                TreeItemComponent={BlockTreeItemComponent}
-                onItemsChanged={itemsChanged}
-                indentationWidth={40}
-            />
+        <div className={clsx(props.className, 'flex flex-col')}>
+            <div className='w-full'>
+                <SortableTree
+                    indicator={false}
+                    items={treeBlocks}
+                    TreeItemComponent={BlockTreeItemComponent}
+                    onItemsChanged={itemsChanged}
+                    indentationWidth={40}
+                />
+            </div>
+            {!blocks.length && <div className='w-full flex-1 flex flex-col items-center'>
+                <div>
+                    <Typewriter
+                        options={{
+                            strings: ['bzbz.... designs....', 'start.... designing.....', 'bzbzbz... choose an example from the header... bz.'],
+                            autoStart: true,
+                            loop: true,
+                            wrapperClassName: 'text-2xl text-center opacity-30',
+                        }}
+                    />
+                </div>
+                <div>
+                    <img src='./logo.png' className='opacity-30' />
+                </div>
+            </div>}
         </div>
     )
 }
