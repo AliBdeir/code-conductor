@@ -1,7 +1,7 @@
 import {
     SortableTree, TreeItems
 } from "dnd-kit-sortable-tree";
-import { FlattenedItem, ItemChangedReason } from "dnd-kit-sortable-tree/dist/types";
+import { ItemChangedReason } from "dnd-kit-sortable-tree/dist/types";
 import React, { useMemo } from "react";
 import { dataActions } from "../../redux/slices/data-slice";
 import { useAppDispatch, useAppSelector } from "../../redux/store";

@@ -5,7 +5,6 @@ import { dataActions } from "../../redux/slices/data-slice";
 import { useAppDispatch } from "../../redux/store";
 import BlockComponent from "../block/block";
 import { CodeBlock } from "../block/types";
-import { FlattenedItem } from "dnd-kit-sortable-tree/dist/types";
 
 const _BlockTreeItemComponent = React.forwardRef<
     HTMLDivElement,
